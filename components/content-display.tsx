@@ -11,12 +11,14 @@ import { InteractiveTheater } from '@/components/interactive-theater';
 import { PodcastPlayer } from '@/components/podcast-player';
 import { InteractiveQuestion } from '@/components/interactive-question';
 import { SlidevRenderer } from '@/components/slidev-renderer';
-import type { QuestionData, PlayAct, PodcastData } from '@/lib/types';
+import { IllustratorBook } from '@/components/illustrator-book';
+import type { QuestionData, PlayAct, PodcastData, IllustratorData } from '@/lib/types';
 
 interface ContentDisplayProps {
   questionData: QuestionData;
   playData?: PlayAct[];
   podcastData?: PodcastData;
+  illustratorData?: IllustratorData;
   onBack?: () => void;
   onSave?: () => void;
   showSaveButton?: boolean;
@@ -26,6 +28,7 @@ export function ContentDisplay({
   questionData,
   playData,
   podcastData,
+  illustratorData,
   onBack,
   onSave,
   showSaveButton = false
@@ -80,13 +83,15 @@ export function ContentDisplay({
 
         <Tabs defaultValue="questions" className="w-full">
           <TabsList className={`grid w-full ${
-            playData && podcastData ? 'grid-cols-4' :
-            playData || podcastData ? 'grid-cols-3' : 'grid-cols-2'
+            [playData, podcastData, illustratorData].filter(Boolean).length === 3 ? 'grid-cols-5' :
+            [playData, podcastData, illustratorData].filter(Boolean).length === 2 ? 'grid-cols-4' :
+            [playData, podcastData, illustratorData].filter(Boolean).length === 1 ? 'grid-cols-3' : 'grid-cols-2'
           }`}>
             <TabsTrigger value="questions">例題</TabsTrigger>
             <TabsTrigger value="slides">投影片</TabsTrigger>
             {playData && <TabsTrigger value="theater">交互式劇場</TabsTrigger>}
             {podcastData && <TabsTrigger value="podcast">Podcast</TabsTrigger>}
+            {illustratorData && <TabsTrigger value="illustrator">圖文</TabsTrigger>}
           </TabsList>
 
           <TabsContent value="questions" className="space-y-4 mt-6">
@@ -120,6 +125,12 @@ export function ContentDisplay({
           {podcastData && (
             <TabsContent value="podcast" className="mt-6">
               <PodcastPlayer podcastData={podcastData} />
+            </TabsContent>
+          )}
+
+          {illustratorData && (
+            <TabsContent value="illustrator" className="mt-6">
+              <IllustratorBook illustratorData={illustratorData} />
             </TabsContent>
           )}
         </Tabs>

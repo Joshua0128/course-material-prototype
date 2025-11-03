@@ -71,6 +71,18 @@ export interface PodcastData {
   segments: PodcastSegment[];
 }
 
+export interface IllustratorPage {
+  page: string;
+  text: string;
+  prompt: string;
+  emotion: string;
+  illustrator_image?: string;
+}
+
+export interface IllustratorData {
+  pages: IllustratorPage[];
+}
+
 export interface ContentAsset {
   id: string;
   title: string;
@@ -80,5 +92,6 @@ export interface ContentAsset {
   questionData: QuestionData;
   playData?: PlayAct[];
   podcastData?: PodcastData;
+  illustratorData?: IllustratorData;
   createdAt: string;
 }

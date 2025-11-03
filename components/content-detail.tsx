@@ -69,6 +69,7 @@ export function ContentDetail({ id }: ContentDetailProps) {
       questionData={asset.questionData}
       playData={asset.playData}
       podcastData={asset.podcastData}
+      illustratorData={asset.illustratorData}
     />
   );
 }

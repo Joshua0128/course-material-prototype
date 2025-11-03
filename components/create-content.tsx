@@ -6,10 +6,11 @@ import { FileUpload } from '@/components/file-upload';
 import { ContentForm } from '@/components/content-form';
 import { ContentDisplay } from '@/components/content-display';
 import { storageService } from '@/lib/storage';
-import type { UploadedFile, FormData, QuestionData, PlayAct, PodcastSegment } from '@/lib/types';
+import type { UploadedFile, FormData, QuestionData, PlayAct, PodcastSegment, IllustratorPage } from '@/lib/types';
 import questionData from '@/data/question.json';
 import playData from '@/data/interaction_play.json';
 import podcastSegments from '@/data/out_tts/timestamps_detail.json';
+import illustratorPages from '@/data/illustrator_source.json';
 
 type Step = 'upload' | 'form' | 'preview';
 
@@ -55,6 +56,9 @@ export function CreateContent() {
         audioUrl: '/data/out_tts/podcast_combined.mp3',
         segments: podcastSegments as PodcastSegment[]
       },
+      illustratorData: {
+        pages: illustratorPages as IllustratorPage[]
+      },
     });
 
     // 導航到新建立的內容詳情頁
@@ -85,6 +89,9 @@ export function CreateContent() {
             podcastData={{
               audioUrl: '/data/out_tts/podcast_combined.mp3',
               segments: podcastSegments as PodcastSegment[]
+            }}
+            illustratorData={{
+              pages: illustratorPages as IllustratorPage[]
             }}
             onBack={handleBackToForm}
             onSave={handleSave}
